@@ -1,0 +1,41 @@
+{
+    "name": "brenosamp/secretariafiap",
+    "description": "Aplicação de Processo Seletivo FIAP",
+    "type": "project",
+    "license": "private",
+    "autoload": {
+      "psr-4": {
+        "SecretariaFiap\\Src\\": "src/",
+        "SecretariaFiap\\Config\\": "config/"
+      },
+      "files": [
+        "config/settings.php"
+      ]
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "SecretariaFiap\\Tests\\": "tests/"
+      }
+    },
+    "authors": [
+      {
+        "name": "BrenoSamp",
+        "email": "bsampaio8@hotmail.com"
+      }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+      "php": "^8.0",
+      "vlucas/phpdotenv": "^5.6",
+      "nyholm/psr7": "^1.5",
+      "nyholm/psr7-server": "^1.0",
+      "ext-pdo": "*",
+      "respect/validation": "^2.2",
+      "robmorgan/phinx": "^0.12.10",
+      "psr/container": "^1.1"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^9",
+      "vimeo/psalm": "^4.23"
+    }
+  }
