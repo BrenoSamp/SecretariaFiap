@@ -336,6 +336,64 @@
             document.getElementById('errorModal').style.display = "none";
         }
 
+        function editarAluno(id) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'ObterAlunoController?id=' + id, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var aluno = JSON.parse(xhr.responseText);
+                    document.getElementById('editId').value = aluno.id;
+                    document.getElementById('editNome').value = aluno.nome;
+                    document.getElementById('editDataNascimento').value = aluno.data_nascimento;
+                    document.getElementById('editCpf').value = aluno.cpf;
+                    document.getElementById('editEmail').value = aluno.email;
+                    document.getElementById('editSenha').value = aluno.senha;
+
+                    document.getElementById('editModal').style.display = "block";
+                }
+            };
+            xhr.send();
+        }
+
+        document.getElementById('editForm').onsubmit = function(event) {
+            event.preventDefault();
+            var id = document.getElementById('editId').value;
+            var nome = document.getElementById('editNome').value;
+            var data_nascimento = document.getElementById('editDataNascimento').value;
+            var cpf = document.getElementById('editCpf').value;
+            var email = document.getElementById('editEmail').value;
+            var senha = document.getElementById('editSenha').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'EditarAlunoController', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    carregarAlunos();
+                    fecharModalEdit();
+                }
+            };
+            xhr.send('id=' + id + '&nome=' + nome + '&data_nascimento=' + data_nascimento + '&cpf=' + cpf + '&email=' + email + '&senha=' + senha);
+        }
+
+        function fecharModalEdit() {
+            document.getElementById('editModal').style.display = "none";
+        }
+
+        function deletarAluno(id) {
+            if (confirm('Tem certeza que deseja excluir este aluno?')) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'DeletarAlunoController', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        carregarAlunos();
+                    }
+                };
+                xhr.send('id=' + id);
+            }
+        }
+
         window.onload = carregarAlunos;
 
         function carregarAlunos() {
